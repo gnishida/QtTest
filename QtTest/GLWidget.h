@@ -40,4 +40,5 @@ class GLWidget : public QWidget
 {
 public:
 	GLWidget();
+
 };

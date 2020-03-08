@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-
+#include "GLWidget.h"
 #include "ui_MainWindow.h"
 
 class MainWindow : public QMainWindow
@@ -14,4 +14,5 @@ public:
 private:
 	Ui::MainWindowClass ui;
 
+	GLWidget widget;
 };

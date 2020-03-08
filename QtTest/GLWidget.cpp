@@ -5,18 +5,12 @@ GLWidget::GLWidget()
 	Qt3DExtras::Qt3DWindow *view = new Qt3DExtras::Qt3DWindow();
 	view->defaultFrameGraph()->setClearColor(QColor(QRgb(0x4d4d4f)));
 	QWidget *container = QWidget::createWindowContainer(view);
-	QSize screenSize = view->screen()->size();
-	container->setMinimumSize(QSize(200, 100));
-	container->setMaximumSize(screenSize);
-
-
+	
 	QHBoxLayout *hLayout = new QHBoxLayout(this);
 	QVBoxLayout *vLayout = new QVBoxLayout();
 	vLayout->setAlignment(Qt::AlignTop);
 	hLayout->addWidget(container, 1);
 	hLayout->addLayout(vLayout);
-
-	this->setWindowTitle(QStringLiteral("Basic shapes"));
 
 	Qt3DInput::QInputAspect *input = new Qt3DInput::QInputAspect;
 	view->registerAspect(input);
@@ -90,18 +84,12 @@ GLWidget::GLWidget()
 	vLayout->addWidget(planeCB);
 	vLayout->addWidget(sphereCB);
 
-	QObject::connect(torusCB, &QCheckBox::stateChanged,
-		modifier, &SceneModifier::enableTorus);
-	QObject::connect(coneCB, &QCheckBox::stateChanged,
-		modifier, &SceneModifier::enableCone);
-	QObject::connect(cylinderCB, &QCheckBox::stateChanged,
-		modifier, &SceneModifier::enableCylinder);
-	QObject::connect(cuboidCB, &QCheckBox::stateChanged,
-		modifier, &SceneModifier::enableCuboid);
-	QObject::connect(planeCB, &QCheckBox::stateChanged,
-		modifier, &SceneModifier::enablePlane);
-	QObject::connect(sphereCB, &QCheckBox::stateChanged,
-		modifier, &SceneModifier::enableSphere);
+	QObject::connect(torusCB, &QCheckBox::stateChanged, modifier, &SceneModifier::enableTorus);
+	QObject::connect(coneCB, &QCheckBox::stateChanged, modifier, &SceneModifier::enableCone);
+	QObject::connect(cylinderCB, &QCheckBox::stateChanged, modifier, &SceneModifier::enableCylinder);
+	QObject::connect(cuboidCB, &QCheckBox::stateChanged, modifier, &SceneModifier::enableCuboid);
+	QObject::connect(planeCB, &QCheckBox::stateChanged, modifier, &SceneModifier::enablePlane);
+	QObject::connect(sphereCB, &QCheckBox::stateChanged, modifier, &SceneModifier::enableSphere);
 
 	torusCB->setChecked(true);
 	coneCB->setChecked(true);
@@ -109,5 +97,4 @@ GLWidget::GLWidget()
 	cuboidCB->setChecked(true);
 	planeCB->setChecked(true);
 	sphereCB->setChecked(true);
-
 }
