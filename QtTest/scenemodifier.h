@@ -1,7 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2016 Klaralvdalens Datakonsult AB (KDAB).
-** Copyright (C) 2016 The Qt Company Ltd and/or its subsidiary(-ies).
+** Copyright (C) 2014 Klaralvdalens Datakonsult AB (KDAB).
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the Qt3D module of the Qt Toolkit.
@@ -49,49 +48,47 @@
 **
 ****************************************************************************/
 
-#ifndef ORBITTRANSFORMCONTROLLER_H
-#define ORBITTRANSFORMCONTROLLER_H
+#ifndef SCENEMODIFIER_H
+#define SCENEMODIFIER_H
 
-#include <QObject>
-#include <QMatrix4x4>
+#include <QtCore/QObject>
 
-namespace Qt3DCore {
-	class QTransform;
-}
+#include <Qt3DCore/qentity.h>
+#include <Qt3DCore/qtransform.h>
 
-class OrbitTransformController : public QObject
+#include <Qt3DExtras/QTorusMesh>
+#include <Qt3DExtras/QConeMesh>
+#include <Qt3DExtras/QCylinderMesh>
+#include <Qt3DExtras/QCuboidMesh>
+#include <Qt3DExtras/QPlaneMesh>
+#include <Qt3DExtras/QSphereMesh>
+#include <Qt3DExtras/QPhongMaterial>
+
+class SceneModifier : public QObject
 {
 	Q_OBJECT
-		Q_PROPERTY(Qt3DCore::QTransform* target READ target WRITE setTarget NOTIFY targetChanged)
-		Q_PROPERTY(float radius READ radius WRITE setRadius NOTIFY radiusChanged)
-		Q_PROPERTY(float angle READ angle WRITE setAngle NOTIFY angleChanged)
 
 public:
-	OrbitTransformController(QObject *parent = 0);
+	explicit SceneModifier(Qt3DCore::QEntity *rootEntity);
+	~SceneModifier();
 
-	void setTarget(Qt3DCore::QTransform *target);
-	Qt3DCore::QTransform *target() const;
-
-	void setRadius(float radius);
-	float radius() const;
-
-	void setAngle(float angle);
-	float angle() const;
-
-signals:
-	void targetChanged();
-	void radiusChanged();
-	void angleChanged();
-
-protected:
-	void updateMatrix();
+public slots:
+	void enableTorus(bool enabled);
+	void enableCone(bool enabled);
+	void enableCylinder(bool enabled);
+	void enableCuboid(bool enabled);
+	void enablePlane(bool enabled);
+	void enableSphere(bool enabled);
 
 private:
-	Qt3DCore::QTransform *m_target;
-	QMatrix4x4 m_matrix;
-	float m_radius;
-	float m_angle;
+	Qt3DCore::QEntity *m_rootEntity;
+	Qt3DExtras::QTorusMesh *m_torus;
+	Qt3DCore::QEntity *m_coneEntity;
+	Qt3DCore::QEntity *m_cylinderEntity;
+	Qt3DCore::QEntity *m_torusEntity;
+	Qt3DCore::QEntity *m_cuboidEntity;
+	Qt3DCore::QEntity *m_planeEntity;
+	Qt3DCore::QEntity *m_sphereEntity;
 };
 
-
-#endif // ORBITTRANSFORMCONTROLLER_H
+#endif // SCENEMODIFIER_H

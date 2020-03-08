@@ -1,10 +1,14 @@
-#include "MainWindow.h"
-#include <QtWidgets/QApplication>
+#include "GLWidget.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-	QApplication a(argc, argv);
-	MainWindow w;
-	w.show();
-	return a.exec();
+	QApplication app(argc, argv);
+
+	GLWidget * widget = new GLWidget();
+
+	// Show window
+	widget->show();
+	widget->resize(1200, 800);
+
+	return app.exec();
 }
